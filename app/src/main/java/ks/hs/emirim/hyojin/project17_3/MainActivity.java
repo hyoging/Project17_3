@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    TextView textName, textEmail;
-    View dialogV;
+    TextView textName, textEmail, textToast;
+    View dialogV, toastV;
     EditText editName, editEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +44,18 @@ public class MainActivity extends AppCompatActivity {
                     textEmail.setText(editEmail.getText().toString());
                 }
             });
-            dialog.setPositiveButton("취소", null);
+            dialog.setPositiveButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Toast toast = new Toast(MainActivity.this);
+                    toastV = View.inflate(MainActivity.this, R.layout.toast1, null);
+                    textToast = toastV.findViewById(R.id.toast_text);
+                    textToast.setText("취소했습니다.");
+                    toast.setView(toastV);
+                    toast.show();
+                }
+            });
             dialog.show();
         }
     };
 }
-//
